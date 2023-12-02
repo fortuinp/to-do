@@ -1,30 +1,52 @@
 
-let itemlist=[]
-function additem() {
-    let input = (document.querySelector('[data-input]').value).trim()
+
+let itemlist = [];
+function addItem() {
+    let input = (document.getElementById('input').value).trim();
     if (input.length === 0 || input.length <= 3) {
-        alert('Item must not be empty and must have more than three characters');
-    }
-    
-    let Citem = input.charAt(0).toUpperCase() + input.slice(1);
-    let additems={
+        alert('characters must be more than 3');
+    } 
+    else{
+    let capItem = input.charAt(0).toUpperCase() + input.slice(1);
+    let addedTask = {
         id: itemlist.length + 1,
-        name: Citem,
+        name: capItem,
         createdDate: new Date().toDateString(),
         completed : false
-    }
-    // console.log(additems.name);
-    itemlist.push(additems)
+    };
+
+    itemlist.push(input);
+    document.getElementById('output').innerText = addedTask.capItem
+    input.value = '';
     localStorage.setItem('list',JSON.stringify(itemlist))
-    document.getElementById('output').innerText = additems.name;
-    display()
+      addtolist();
 }
-document.querySelector('[data-add]').addEventListener('click',additem)
-
-function display() {
-    console.log(JSON.parse(localStorage.getItem('list')));
-    let output= document.getElementById('output')
-    output.innerText = JSON.parse(localStorage.getItem('list'));
 }
+document.querySelector('[data-add]').addEventListener('click', addItem)
 
 
+function addtolist() {
+    let items=document.getElementById('output')
+    items.innerHTML=""
+    
+    for (let i=0;i<itemlist.length;i++){
+   output.innerHTML += `<li> ${itemlist[i]} </li>`
+
+
+    itemlist.forEach(addedTask => {     
+            let checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = addedTask.completed});
+
+
+console.log(JSON.parse(localStorage.getItem('list')));
+    //output.innerText = JSON.parse(localStorage.getItem('list'));
+
+   }}
+
+
+function sortitems() {
+    itemlist.sort()
+    addtolist()
+}
+document.querySelector('[data-sort]').addEventListener('click', sortitems)
